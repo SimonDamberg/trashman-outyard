@@ -1,11 +1,30 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://resources/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Score.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 52.8813, 41.9837 )
 
 [node name="Node" type="Node"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 227.412, 164.304 )
+speed = 500
 
 [node name="StartPosition" type="Node" parent="."]
 
 [node name="Score" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="Test" type="KinematicBody2D" parent="."]
+position = Vector2( 0.810654, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Test"]
+position = Vector2( 159.791, 77.0947 )
+shape = SubResource( 1 )
+
+[connection signal="hit_trash" from="Player" to="Score" method="_on_Player_hit_trash"]

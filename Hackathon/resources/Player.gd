@@ -1,5 +1,6 @@
 extends Area2D
 
+signal hit_trash
 var screen_size
 export var speed = 50
 
@@ -21,12 +22,15 @@ func get_input():
 func _ready():
 	screen_size = get_viewport_rect().size
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var velocity = get_input()
 	position += velocity * delta
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
-	
-	
+	position.x = clamp(position.x, 10, screen_size.x-10) # TODO add offset
+	position.y = clamp(position.y, 10, screen_size.y-10) # TODO add offset
+
+func _on_Player_body_entered(body):
+	# TODO Check id of trash 
+	# TODO Add points to score counter
+	print(body.position)
+	emit_signal("hit_trash", 1)
