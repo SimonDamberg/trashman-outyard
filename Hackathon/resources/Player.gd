@@ -32,5 +32,4 @@ func _process(delta):
 func _on_Player_body_entered(body):
 	# TODO Check id of trash 
 	# TODO Add points to score counter
-	print(body.position)
-	emit_signal("hit_trash", 1)
+	emit_signal("hit_trash", body.value)
