@@ -3,8 +3,8 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-const window_size = Vector2(1024,600)
 const loc = Vector2()
+const max_trash = 10
 var player
 
 var trash = [
@@ -20,9 +20,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	var window_size = get_viewport().size
 	randomize()
 	var spawn = randi() % 100 + 1
-	if(spawn == 1):
+	var number_of_trash = get_child_count()
+	if(spawn == 1 && number_of_trash < max_trash):
 		var x = randi() % trash.size()
 		loc.x = rand_range(1, window_size.x)
 		loc.y = rand_range(1, window_size.y)
