@@ -17,14 +17,15 @@ var trash = [
 func _ready():
 	player = get_parent().get_node("Player")
 
-
+var lastDeploy = 0;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var window_size = get_viewport().size
 	randomize()
 	var spawn = randi() % 100 + 1
 	var number_of_trash = get_child_count()
-	if(spawn == 1 && number_of_trash < max_trash):
+	lastDeploy += delta;
+	if(spawn == 1 && number_of_trash < max_trash && lastDeploy > 1):
 		var x = randi() % trash.size()
 		loc.x = rand_range(1, window_size.x)
 		loc.y = rand_range(1, window_size.y)
@@ -32,4 +33,5 @@ func _process(delta):
 		trash_obj.position = loc
 		player.connect('hit_trash', trash_obj, 'delete_trash')
 		add_child(trash_obj)
+		lastDeploy = 0;
 
