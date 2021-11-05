@@ -1,8 +1,5 @@
 extends Node
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var value
 var trash_type
 var value_map = {
@@ -27,7 +24,7 @@ func _ready():
 	else:
 		# 60% spawn chance
 		trash_type = 'cock'
-	
+	set_meta('type','trash')
 	add_child(trash, true)
 	trash.texture = texture_map[trash_type]
 	value = value_map[trash_type]
