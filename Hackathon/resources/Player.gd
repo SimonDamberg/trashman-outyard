@@ -80,7 +80,7 @@ func _on_Player_body_exited(body):
 func _on_HUD_buy_speed(score):
 	if(score > 30):
 		score -= 30
-		speed += 10
+		speed += 50
 		emit_signal("update_score", score)
 
 func _on_Timer_timeout():
