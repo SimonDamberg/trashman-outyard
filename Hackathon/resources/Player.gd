@@ -6,6 +6,7 @@ export var speed = 50
 export var runMultiplier  =2.5
 var inWall = false;
 var wallRotation = 0;
+var playingPickup = false;
 func get_input():
 	var velocity = Vector2()  # The player's movement vector.
 	var total_rot = 0
@@ -32,8 +33,9 @@ func get_input():
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * realSpeed
 		$AnimatedSprite.speed_scale * realSpeed
-		$AnimatedSprite.play()
-	else:
+		if(!playingPickup):
+			$AnimatedSprite.play('walk')
+	elif !playingPickup:
 		$AnimatedSprite.stop()
 	return velocity
 
@@ -55,13 +57,17 @@ func _process(delta):
 	position += velocity * delta
 	position.x = clamp(position.x, 50, screen_size.x-25)
 	position.y = clamp(position.y, 40, screen_size.y-20)
-	$AnimatedSprite.animation = "walk"
+
 
 func _on_Player_body_entered(body):
 	# TODO Add points to score counter
 	if body.get_collision_layer() == 1:
 		emit_signal("hit_trash", body.value, body)
-		$AnimatedSprite.animation = "pickup"
+		
+		$AnimatedSprite.play("pickup",false)
+
+		playingPickup = true
+		$Timer.start(0.5)
 	elif body.get_collision_layer() == 2:
 		print('trashCollector')
 	elif body.get_collision_layer() == 4:
@@ -71,3 +77,7 @@ func _on_Player_body_exited(body):
 	if body.get_collision_layer() == 4:
 		leftWall()
 
+func _on_Timer_timeout():
+	playingPickup = false;
+	$AnimatedSprite.play('walk')
+	pass # Replace with function body.
