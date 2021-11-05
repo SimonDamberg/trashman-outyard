@@ -19,6 +19,14 @@ func get_input():
 	if Input.is_action_pressed("ui_up"):
 		velocity.y -= 1
 		$AnimatedSprite.rotation_degrees = -90
+	if Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_left"):
+		$AnimatedSprite.rotation_degrees = -135		
+	if Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_right"):
+		$AnimatedSprite.rotation_degrees = -45
+	if Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_left"):
+		$AnimatedSprite.rotation_degrees = 135		
+	if Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_right"):
+		$AnimatedSprite.rotation_degrees = 45	
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 		$AnimatedSprite.play()
