@@ -7,7 +7,7 @@ func _ready():
 	pass # Replace with function body.
 
 func add_score(trash_value):
-	score += 1
+	score += trash_value
 	print("Hit detected! Adding %d" % trash_value)
 	print("New score: %d" % score)
 

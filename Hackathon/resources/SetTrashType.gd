@@ -3,15 +3,34 @@ extends Node
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var value = 1
-var textures = ['chugjug.png','cigg.png','cock.png']
+var value
+var trash_type
+var value_map = {
+	'chugjug': 3,
+	'cigg': 5,
+	'cock': 1}
+var texture_map = {
+	'chugjug': preload('res://assets/chugjug.png'),
+	'cigg': preload('res://assets/cigg.png'),
+	'cock': preload('res://assets/cock.png')
+}
 var trash = Sprite.new()
-var texturesLoaded = [preload('res://assets/chugjug.png'),preload('res://assets/cigg.png'),preload('res://assets/cock.png'),]
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var rand = randi() % 100 + 1
+	if(rand < 10): 
+		# 10% spawn chance
+		trash_type = 'cigg'
+	elif(rand < 40):
+		# 30% spawn chance
+		trash_type = 'chugjug'
+	else:
+		# 60% spawn chance
+		trash_type = 'cock'
+	
 	add_child(trash, true)
-	trash.texture = texturesLoaded[(rand_range(0,len(texturesLoaded)))]
-	pass # Replace with function body.
+	trash.texture = texture_map[trash_type]
+	value = value_map[trash_type]
 
 func delete_trash(trash_value, body):
 	get_parent().get_node(body.name).queue_free()
