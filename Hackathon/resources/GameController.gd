@@ -14,7 +14,7 @@ var trash = [
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player = get_parent().get_node("Player")
-
+	startGame()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var window_size = get_viewport().size
@@ -38,3 +38,24 @@ func upgrade_spawn_rate():
 
 func upgrade_max_trash():
 	max_trash += 3
+
+
+func endGame():
+	var query = JSON.print({'score': get_parent().get_node("Score").score})
+	# Add 'Content-Type' header:
+	var headers = ["Content-Type: application/json"]
+	get_parent().get_node("HTTPRequest").request("http://127.0.0.1:8000/score", headers, false, HTTPClient.METHOD_POST,query)
+	for x in get_parent().get_node("GameOver").get_children():
+		x.visible = true
+	get_parent().get_node("GameTimer").stop()
+func startGame():
+	get_parent().get_node("GameTimer").start(2)
+	get_parent().get_node("Score").score = 0
+	for x in get_parent().get_node("GameOver").get_children():
+		x.visible = false
+	pass
+
+
+func _on_Button_pressed():
+	startGame()
+	pass # Replace with function body.
