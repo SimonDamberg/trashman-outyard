@@ -5,6 +5,7 @@ var max_trash = 10
 var spawn_rate = 1
 var lastDeploy = 0
 var player
+signal update_score
 
 var trash = [
 	# TODO: add preloads for trash scenes here
@@ -33,8 +34,16 @@ func _process(delta):
 
 		lastDeploy = 0;
 
-func upgrade_spawn_rate():
-	spawn_rate += 0.1
+func _on_HUD_buy_limit(score):
+	if(score > 40):
+		print("har råd med limit")
+		score -= 40
+		max_trash += 3
+		emit_signal("update_score", score)
 
-func upgrade_max_trash():
-	max_trash += 3
+func _on_HUD_buy_rate(score):
+	if(score > 35):
+		print("har råd med rate")
+		score -= 35
+		spawn_rate += 0.1
+		emit_signal("update_score", score)
