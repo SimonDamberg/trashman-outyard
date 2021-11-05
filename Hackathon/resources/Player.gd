@@ -6,19 +6,25 @@ export var speed = 50
 
 func get_input():
 	var velocity = Vector2()  # The player's movement vector.
+	var total_rot = 0
 	if Input.is_action_pressed("ui_right"):
 		velocity.x += 1
+		$AnimatedSprite.rotation_degrees = 0
 	if Input.is_action_pressed("ui_left"):
 		velocity.x -= 1
+		$AnimatedSprite.rotation_degrees = 180
 	if Input.is_action_pressed("ui_down"):
 		velocity.y += 1
+		$AnimatedSprite.rotation_degrees = 90
 	if Input.is_action_pressed("ui_up"):
 		velocity.y -= 1
+		$AnimatedSprite.rotation_degrees = -90
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 		$AnimatedSprite.play()
 	else:
 		$AnimatedSprite.stop()
+	$AnimatedSprite.rotation_degrees = total_rot
 	return velocity
 
 # Called when the node enters the scene tree for the first time.
@@ -31,14 +37,7 @@ func _process(delta):
 	position += velocity * delta
 	position.x = clamp(position.x, 10, screen_size.x-10) # TODO add offset
 	position.y = clamp(position.y, 10, screen_size.y-10) # TODO add offset
-	#$AnimatedSprite.animation = "walk"
-	
-	if velocity.x != 0:
-		$AnimatedSprite.flip_v = false
-		# See the note below about boolean assignment
-		$AnimatedSprite.flip_h = velocity.x < 0
-	elif velocity.y != 0:
-		$AnimatedSprite.flip_v = velocity.y > 0
+	$AnimatedSprite.animation = "walk"
 
 func _on_Player_body_entered(body):
 	# TODO Add points to score counter
