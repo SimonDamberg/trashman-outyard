@@ -1,15 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Score.gd" type="Script" id=2]
 [ext_resource path="res://resources/GameController.gd" type="Script" id=3]
 [ext_resource path="res://assets/playground.png" type="Texture" id=4]
 [ext_resource path="res://resources/bgscaler.gd" type="Script" id=5]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=6]
+[ext_resource path="res://HUD.gd" type="Script" id=7]
 
 [node name="Node" type="Node"]
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 507.02, 317.289 )
+position = Vector2( 506.66, 339.596 )
 scale = Vector2( 1.33498, 1.33498 )
 texture = ExtResource( 4 )
 script = ExtResource( 5 )
@@ -26,4 +28,16 @@ script = ExtResource( 2 )
 [node name="GameController" type="Node2D" parent="."]
 script = ExtResource( 3 )
 
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2( 135.955, 581.606 )
+polygon = PoolVector2Array( -137.005, -95.2866, -112.516, -96.9192, -108.271, -64.267, 230.658, -64.5936, 229.026, -113.572, 142.824, -112.592, 140.542, -195.874, 394.38, -193.341, 395.393, -116.328, 312.301, -111.262, 312.301, -71.2353, 841.589, -68.1207, 840.502, -117.578, 898.655, -118.121, 900.285, 130.795, -143.764, 121.683, -142.759, -99.4736 )
+one_way_collision = true
+
+[node name="HUD" parent="." instance=ExtResource( 6 )]
+script = ExtResource( 7 )
+
 [connection signal="hit_trash" from="Player" to="Score" method="_on_Player_hit_trash"]
+[connection signal="update_score" from="Score" to="HUD" method="_on_Score_update_score"]
