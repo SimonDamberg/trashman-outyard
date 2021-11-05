@@ -30,6 +30,7 @@ func _process(delta):
 		trash_obj.position = loc
 		player.connect('hit_trash', trash_obj, 'delete_trash')
 		add_child(trash_obj)
+
 		lastDeploy = 0;
 
 func upgrade_spawn_rate():

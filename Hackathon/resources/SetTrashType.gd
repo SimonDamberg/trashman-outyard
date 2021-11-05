@@ -14,6 +14,7 @@ var texture_map = {
 var trash = Sprite.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	var rand = randi() % 100 + 1
 	if(rand < 10): 
 		# 10% spawn chance
@@ -31,3 +32,8 @@ func _ready():
 
 func delete_trash(trash_value, body):
 	get_parent().get_node(body.name).queue_free()
+
+
+func _on_Area2D_body_entered(body):
+	if(body.get_collision_layer() == 4):
+		get_parent().get_node(self.name).queue_free()
