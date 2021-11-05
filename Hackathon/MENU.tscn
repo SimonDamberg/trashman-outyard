@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/welcome.png" type="Texture" id=1]
+[ext_resource path="res://MENU.gd" type="Script" id=2]
+
+[node name="MENU" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="StartButton" type="Button" parent="."]
+margin_left = -125.0
+margin_top = 42.0
+margin_right = 122.0
+margin_bottom = 103.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+
+[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]

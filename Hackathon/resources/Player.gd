@@ -1,6 +1,7 @@
 extends Area2D
 
 signal hit_trash
+signal update_score
 var screen_size
 export var speed = 50
 export var runMultiplier  =2.5
@@ -77,7 +78,14 @@ func _on_Player_body_exited(body):
 	if body.get_collision_layer() == 4:
 		leftWall()
 
+func _on_HUD_buy_speed(score):
+	if(score > 30):
+		score -= 30
+		speed += 10
+		emit_signal("update_score", score)
+
 func _on_Timer_timeout():
 	playingPickup = false;
 	$AnimatedSprite.play('walk')
 	pass # Replace with function body.
+

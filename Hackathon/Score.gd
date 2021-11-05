@@ -14,3 +14,10 @@ func add_score(trash_value):
 
 func _on_Player_hit_trash(trash_value, body):
 	add_score(trash_value)
+
+func _on_GameController_update_score(new_score):
+	score = new_score
+
+func _on_Player_update_score(new_score_player):
+	score = new_score_player
+	print(score)
