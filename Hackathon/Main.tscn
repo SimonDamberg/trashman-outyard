@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://resources/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Score.gd" type="Script" id=2]
@@ -6,8 +6,23 @@
 [ext_resource path="res://assets/playground.png" type="Texture" id=4]
 [ext_resource path="res://resources/bgscaler.gd" type="Script" id=5]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=6]
+[ext_resource path="res://timer.gd" type="Script" id=7]
 
-[node name="Node" type="Node"]
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Trash-Yz6a.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 31
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFontData" id=3]
+font_path = "res://Trash-Yz6a.ttf"
+
+[sub_resource type="DynamicFont" id=4]
+size = 23
+font_data = SubResource( 3 )
+
+[node name="Node2" type="Node"]
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 504.017, 339.596 )
@@ -37,6 +52,53 @@ one_way_collision = true
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 
+[node name="GameTimer" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="GameTimer"]
+
+[node name="RichTextLabel" type="Label" parent="GameTimer/CanvasLayer"]
+margin_left = 14.166
+margin_top = 13.5758
+margin_right = 264.166
+margin_bottom = 53.5758
+script = ExtResource( 7 )
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="GameOver"]
+modulate = Color( 0, 0, 0, 0.65098 )
+margin_left = -182.888
+margin_top = -126.946
+margin_right = 1335.11
+margin_bottom = 731.054
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="Label" parent="GameOver"]
+margin_left = 354.612
+margin_top = 234.001
+margin_right = 652.612
+margin_bottom = 382.001
+custom_fonts/font = SubResource( 2 )
+text = "Game Over"
+align = 1
+
+[node name="Button" type="Button" parent="GameOver"]
+modulate = Color( 1, 0, 0, 1 )
+self_modulate = Color( 1, 0, 0, 1 )
+margin_left = 442.561
+margin_top = 297.708
+margin_right = 548.561
+margin_bottom = 329.708
+custom_fonts/font = SubResource( 4 )
+text = "Restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [connection signal="hit_trash" from="Player" to="Score" method="_on_Player_hit_trash"]
 [connection signal="update_score" from="Player" to="Score" method="_on_Player_update_score"]
 [connection signal="update_score" from="Player" to="HUD" method="_on_Player_update_score"]
@@ -46,3 +108,5 @@ one_way_collision = true
 [connection signal="buy_limit" from="HUD" to="GameController" method="_on_HUD_buy_limit"]
 [connection signal="buy_rate" from="HUD" to="GameController" method="_on_HUD_buy_rate"]
 [connection signal="buy_speed" from="HUD" to="Player" method="_on_HUD_buy_speed"]
+[connection signal="timeout" from="GameTimer" to="GameController" method="endGame"]
+[connection signal="pressed" from="GameOver/Button" to="GameController" method="_on_Button_pressed"]

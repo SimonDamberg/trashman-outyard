@@ -54,7 +54,7 @@ func endGame():
 		x.visible = true
 	get_parent().get_node("GameTimer").stop()
 func startGame():
-	get_parent().get_node("GameTimer").start(2)
+	get_parent().get_node("GameTimer").start(120)
 	get_parent().get_node("Score").score = 0
 	for x in get_parent().get_node("GameOver").get_children():
 		x.visible = false

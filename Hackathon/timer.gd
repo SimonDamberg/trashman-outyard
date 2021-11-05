@@ -1,4 +1,4 @@
-extends RichTextLabel
+extends Label
 
 
 # Declare member variables here. Examples:
