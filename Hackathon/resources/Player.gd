@@ -24,7 +24,6 @@ func get_input():
 		$AnimatedSprite.play()
 	else:
 		$AnimatedSprite.stop()
-	$AnimatedSprite.rotation_degrees = total_rot
 	return velocity
 
 # Called when the node enters the scene tree for the first time.
