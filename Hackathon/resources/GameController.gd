@@ -5,7 +5,7 @@ extends Node2D
 # var b = "text"
 const window_size = Vector2(1024,600)
 const loc = Vector2()
-const player = preload("res://resources/Player.tscn")
+var player
 
 var trash = [
 	# TODO: add preloads for trash scenes here
@@ -15,8 +15,7 @@ var trash = [
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	pass # Replace with function body.
+	player = get_parent().get_node("Player")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,6 +28,6 @@ func _process(delta):
 		loc.y = rand_range(1, window_size.y)
 		var trash_obj = trash[x].instance()
 		trash_obj.position = loc
-		player.connect('hit_trash', trash_obj, '_test_func ')
+		player.connect('hit_trash', trash_obj, 'delete_trash')
 		add_child(trash_obj)
 

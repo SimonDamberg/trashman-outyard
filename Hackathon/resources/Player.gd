@@ -40,5 +40,5 @@ func _process(delta):
 
 func _on_Player_body_entered(body):
 	# TODO Add points to score counter
-	emit_signal("hit_trash", body.value)
+	emit_signal("hit_trash", body.value, body)
 	$AnimatedSprite.animation = "pickup"

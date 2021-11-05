@@ -11,5 +11,5 @@ func add_score(trash_value):
 	print("Hit detected! Adding %d" % trash_value)
 	print("New score: %d" % score)
 
-func _on_Player_hit_trash(trash_value):
+func _on_Player_hit_trash(trash_value, body):
 	add_score(trash_value)
