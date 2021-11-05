@@ -1,10 +1,9 @@
 extends Node2D
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 const loc = Vector2()
-const max_trash = 10
+var max_trash = 10
+var spawn_rate = 1
+var lastDeploy = 0
 var player
 
 var trash = [
@@ -12,20 +11,18 @@ var trash = [
 	preload("res://resources/Trash.tscn")
 ]
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player = get_parent().get_node("Player")
 
-var lastDeploy = 0;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var window_size = get_viewport().size
 	randomize()
-	var spawn = randi() % 100 + 1
+	var should_spawn = randi() % 100 + 1
 	var number_of_trash = get_child_count()
 	lastDeploy += delta;
-	if(spawn == 1 && number_of_trash < max_trash && lastDeploy > 1):
+	if(should_spawn <= spawn_rate && number_of_trash < max_trash && lastDeploy > 1):
 		var x = randi() % trash.size()
 		loc.x = rand_range(1, window_size.x)
 		loc.y = rand_range(1, window_size.y)
@@ -36,3 +33,8 @@ func _process(delta):
 
 		lastDeploy = 0;
 
+func upgrade_spawn_rate():
+	spawn_rate += 0.1
+
+func upgrade_max_trash():
+	max_trash += 3

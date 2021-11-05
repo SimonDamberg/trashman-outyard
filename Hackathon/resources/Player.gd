@@ -50,10 +50,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	var window_size = get_viewport().size
 	var velocity = get_input()
 	position += velocity * delta
-	position.x = clamp(position.x, 10, screen_size.x-10) # TODO add offset
-	position.y = clamp(position.y, 10, screen_size.y-10) # TODO add offset
+	position.x = clamp(position.x, 50, screen_size.x-25) # TODO add offset
+	position.y = clamp(position.y, 40, screen_size.y-20) # TODO add offset
 	$AnimatedSprite.animation = "walk"
 
 func _on_Player_body_entered(body):
