@@ -64,9 +64,8 @@ func _on_Player_body_entered(body):
 	# TODO Add points to score counter
 	if body.get_collision_layer() == 1:
 		emit_signal("hit_trash", body.value, body)
-		
+		$Effect.play(0)
 		$AnimatedSprite.play("pickup",false)
-
 		playingPickup = true
 		$Timer.start(0.5)
 	elif body.get_collision_layer() == 2:
@@ -86,6 +85,7 @@ func _on_HUD_buy_speed(score):
 
 func _on_Timer_timeout():
 	playingPickup = false;
+	$Effect.stop()
 	$AnimatedSprite.play('walk')
 	pass # Replace with function body.
 
