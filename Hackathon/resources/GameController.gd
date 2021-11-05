@@ -5,6 +5,7 @@ extends Node2D
 # var b = "text"
 const window_size = Vector2(1024,600)
 const loc = Vector2()
+const player = preload("res://resources/Player.tscn")
 
 var trash = [
 	# TODO: add preloads for trash scenes here
@@ -26,6 +27,8 @@ func _process(delta):
 		var x = randi() % trash.size()
 		loc.x = rand_range(1, window_size.x)
 		loc.y = rand_range(1, window_size.y)
-		var scene = trash[x].instance()
-		scene.position = loc
-		add_child(scene)
+		var trash_obj = trash[x].instance()
+		trash_obj.position = loc
+		player.connect('hit_trash', trash_obj, '_test_func ')
+		add_child(trash_obj)
+
