@@ -52,5 +52,8 @@ func _process(delta):
 
 func _on_Player_body_entered(body):
 	# TODO Add points to score counter
-	emit_signal("hit_trash", body.value, body)
-	$AnimatedSprite.animation = "pickup"
+	if body.get_meta('type') == 'trash':
+		emit_signal("hit_trash", body.value, body)
+		$AnimatedSprite.animation = "pickup"
+	elif body.get_meta('type') == 'trashCollector':
+		print('TrashCollector')
