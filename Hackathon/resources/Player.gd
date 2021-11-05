@@ -3,10 +3,13 @@ extends Area2D
 signal hit_trash
 var screen_size
 export var speed = 50
-
+export var runMultiplier  =2.5
 func get_input():
 	var velocity = Vector2()  # The player's movement vector.
 	var total_rot = 0
+	var realSpeed = speed;
+	if Input.is_key_pressed(KEY_SHIFT):
+		realSpeed = realSpeed*runMultiplier;
 	if Input.is_action_pressed("ui_right"):
 		velocity.x += 1
 		$AnimatedSprite.rotation_degrees = 0
@@ -28,7 +31,8 @@ func get_input():
 	if Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_right"):
 		$AnimatedSprite.rotation_degrees = 45	
 	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
+		velocity = velocity.normalized() * realSpeed
+		$AnimatedSprite.speed_scale * realSpeed
 		$AnimatedSprite.play()
 	else:
 		$AnimatedSprite.stop()
