@@ -77,10 +77,6 @@ func _on_Player_body_exited(body):
 	if body.get_collision_layer() == 4:
 		leftWall()
 
-
-
-
-
 func _on_Timer_timeout():
 	playingPickup = false;
 	$AnimatedSprite.play('walk')
