@@ -16,6 +16,9 @@ func get_input():
 		velocity.y -= 1
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
+		$AnimatedSprite.play()
+	else:
+		$AnimatedSprite.stop()
 	return velocity
 
 # Called when the node enters the scene tree for the first time.
@@ -28,8 +31,16 @@ func _process(delta):
 	position += velocity * delta
 	position.x = clamp(position.x, 10, screen_size.x-10) # TODO add offset
 	position.y = clamp(position.y, 10, screen_size.y-10) # TODO add offset
+	#$AnimatedSprite.animation = "walk"
+	
+	if velocity.x != 0:
+		$AnimatedSprite.flip_v = false
+		# See the note below about boolean assignment
+		$AnimatedSprite.flip_h = velocity.x < 0
+	elif velocity.y != 0:
+		$AnimatedSprite.flip_v = velocity.y > 0
 
 func _on_Player_body_entered(body):
-	# TODO Check id of trash 
 	# TODO Add points to score counter
 	emit_signal("hit_trash", body.value)
+	$AnimatedSprite.animation = "pickup"
