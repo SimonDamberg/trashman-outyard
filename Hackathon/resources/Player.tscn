@@ -49,5 +49,4 @@ volume_db = 10.0
 
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Player_body_exited"]
-[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished" binds= [ false ]]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

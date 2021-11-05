@@ -87,5 +87,4 @@ func _on_Timer_timeout():
 	playingPickup = false;
 	$Effect.stop()
 	$AnimatedSprite.play('walk')
-	pass # Replace with function body.
 
